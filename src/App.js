@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import store from './store';
+import IngredientForm from './components/IngredientForm';
+import CoffeeForm from './components/CoffeeForm';
+import IngredientList from './components/IngredientList';
+import CoffeeList from './components/CoffeeList';
+import IngredientDetail from './features/ingredients/IngredientDetail';
+import CoffeeDetail from './features/coffees/CoffeeDetail';
+import './styles.css'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Provider store={store}>
+          <Router>
+              <div className="container">
+                  <h1>Craft Coffee Shop Admin Panel</h1>
+                  <Routes>
+                      <Route path="/" element={<div>
+                          <IngredientForm />
+                          <IngredientList />
+                          <CoffeeForm />
+                          <CoffeeList />
+                      </div>} />
+                      <Route path="/ingredients/:id" element={<IngredientDetail />} />
+                      <Route path="/coffees/:id" element={<CoffeeDetail />} />
+                  </Routes>
+              </div>
+          </Router>
+      </Provider>
   );
-}
+};
 
 export default App;
